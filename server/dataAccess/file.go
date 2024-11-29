@@ -44,7 +44,7 @@ func (f *FileDataAccess) GetFileMetadata(ctx context.Context, fileName string) (
 	// Check if the file exists in the bucket
 	_, err := f.MinIOClient.Client.StatObject(ctx, f.MinIOClient.Bucket, fileName, minio.StatObjectOptions{})
 	if err != nil {
-		return nil, fmt.Errorf("could not retrieve file metadata: %v", err)
+		return nil, fmt.Errorf("file does not exist: %v", err)
 	}
 
 	// Return file metadata
@@ -57,6 +57,10 @@ func (f *FileDataAccess) GetFileMetadata(ctx context.Context, fileName string) (
 
 // DeleteFile removes a file from MinIO.
 func (f *FileDataAccess) DeleteFile(ctx context.Context, fileName string) error {
+	_, errorFindingFile := f.GetFileMetadata(ctx, fileName)
+	if errorFindingFile != nil {
+		return fmt.Errorf("file does not exist")
+	}
 	// Remove the file from MinIO bucket
 	err := f.MinIOClient.Client.RemoveObject(ctx, f.MinIOClient.Bucket, fileName, minio.RemoveObjectOptions{})
 	if err != nil {
@@ -68,14 +72,11 @@ func (f *FileDataAccess) DeleteFile(ctx context.Context, fileName string) error 
 
 // UpdateFile deletes the old file and uploads a new one to MinIO.
 func (f *FileDataAccess) UpdateFile(ctx context.Context, oldFileName, newFileName string, newFile []byte) (*models.FileMetadata, error) {
-	// First, delete the old file
-	err := f.DeleteFile(ctx, oldFileName)
-	if err != nil {
-		return nil, fmt.Errorf("could not delete old file: %v", err)
-	}
+	// First, delete the old file if exist
+	_ = f.DeleteFile(ctx, oldFileName)
 
 	// Now upload the new file
-	_, err = f.UploadFile(ctx, newFile, newFileName)
+	_, err := f.UploadFile(ctx, newFile, newFileName)
 	if err != nil {
 		return nil, fmt.Errorf("could not upload new file: %v", err)
 	}

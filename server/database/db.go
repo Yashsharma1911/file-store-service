@@ -1,8 +1,8 @@
 package database
 
 import (
+	"context"
 	"fmt"
-	"os"
 
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
@@ -16,10 +16,16 @@ type MinIOClient struct {
 
 // NewMinIOClient initializes and returns a new MinIO client.
 func NewMinIOClient() (*MinIOClient, error) {
-	endpoint := os.Getenv("MINIO_ENDPOINT")    // E.g., "localhost:9000"
-	accessKey := os.Getenv("MINIO_ACCESS_KEY") // E.g., "minioaccesskey"
-	secretKey := os.Getenv("MINIO_SECRET_KEY") // E.g., "miniosecretkey"
-	bucket := os.Getenv("MINIO_BUCKET")        // E.g., "my-bucket"
+	fmt.Println("Database initializing...")
+	// endpoint := os.Getenv("MINIO_ENDPOINT")    // E.g., "localhost:9000"
+	// accessKey := os.Getenv("MINIO_ACCESS_KEY") // E.g., "minioaccesskey"
+	// secretKey := os.Getenv("MINIO_SECRET_KEY") // E.g., "miniosecretkey"
+	// bucket := os.Getenv("MINIO_BUCKET")        // E.g., "my-bucket"
+	endpoint := "play.min.io"
+	accessKey := "Q3AM3UQ867SPQQA43P2F"
+	secretKey := "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG"
+	useSSL := true
+	bucket := "testbucket"
 
 	// If any environment variables are missing, you can hardcode them temporarily for testing purposes
 	if endpoint == "" {
@@ -37,25 +43,28 @@ func NewMinIOClient() (*MinIOClient, error) {
 	// Initialize MinIO client
 	client, err := minio.New(endpoint, &minio.Options{
 		Creds:  credentials.NewStaticV4(accessKey, secretKey, ""),
-		Secure: false, // Set to true if using HTTPS
+		Secure: useSSL, // Set to true if using HTTPS
 	})
 	if err != nil {
 		return nil, fmt.Errorf("could not create MinIO client: %v", err)
 	}
 
-	// exists, err := client.BucketExists(context.Background(), bucket)
-	// if err != nil {
-	// 	log.Fatalf("Error checking bucket existence: %v", err)
-	// 	return nil, err
-	// }
-	// if !exists {
-	// 	err = client.MakeBucket(context.Background(), bucket, minio.MakeBucketOptions{})
-	// 	if err != nil {
-	// 		log.Fatalf("Error creating bucket: %v", err)
-	// 		return nil, err
-	// 	}
-	// 	log.Printf("Bucket created successfully")
-	// }
+	fmt.Println("new client created")
+
+	exists, err := client.BucketExists(context.Background(), bucket)
+	if err != nil {
+		fmt.Errorf("Error checking bucket existence: %v", err)
+		return nil, err
+	}
+	if !exists {
+		err = client.MakeBucket(context.Background(), bucket, minio.MakeBucketOptions{})
+		if err != nil {
+			fmt.Errorf("Error creating bucket: %v", err)
+			return nil, err
+		}
+		fmt.Printf("Bucket created successfully")
+	}
+	fmt.Println("Successfully created database")
 
 	// Return MinIO client
 	return &MinIOClient{

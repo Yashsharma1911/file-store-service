@@ -8,5 +8,7 @@ import (
 func SetupRouter(e *echo.Echo, h handlers.Handlers) {
 	e.POST("/files", h.AddFile)
 	e.GET("/files", h.ListFiles)
+	e.GET("/files/:name", h.GetFile)
 	e.DELETE("/files/:name", h.RemoveFile)
+	e.PUT("/files/:name", h.UpdateFile)
 }
