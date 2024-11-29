@@ -1,7 +1,10 @@
 package handlers
 
 import (
+	"fmt"
+	"mime/multipart"
 	"net/http"
+	"sync"
 
 	"github.com/Yashsharma1911/file-store-service/server/models"
 	"github.com/labstack/echo/v4"
@@ -14,37 +17,51 @@ func (h *Handlers) AddFile(c echo.Context) error {
 	}
 
 	var uploadedFiles []models.FileMetadata
+	var mu sync.Mutex
+	var wg sync.WaitGroup
 
-	// Loop through the files under the "files" field directly
 	for _, fileHeader := range filesData.File["files"] {
-		existingFile, err := h.FileDataAccess.GetFileMetadata(c.Request().Context(), fileHeader.Filename)
-		if err == nil && existingFile != nil {
-			return c.JSON(http.StatusBadRequest, map[string]string{"error": "file already exists"})
-		}
+		wg.Add(1)
+		go func(c echo.Context, fileHeader *multipart.FileHeader) {
+			defer wg.Done()
 
-		fileContent, err := fileHeader.Open()
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, map[string]string{"error": "could not open file"})
-		}
-		defer fileContent.Close()
+			existingFile, err := h.FileDataAccess.GetFileMetadata(c.Request().Context(), fileHeader.Filename)
+			if err == nil && existingFile != nil {
+				c.JSON(http.StatusBadRequest, map[string]string{"error": fmt.Sprintf("%s file already exist", fileHeader.Filename)})
+				return
+			}
 
-		fileBytes := make([]byte, fileHeader.Size)
-		_, err = fileContent.Read(fileBytes)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, map[string]string{"error": "could not read file"})
-		}
+			fileContent, err := fileHeader.Open()
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, map[string]string{"error": "could not open file"})
+				return
+			}
+			defer fileContent.Close()
 
-		uploadedFile, err := h.FileDataAccess.UploadFile(c.Request().Context(), fileBytes, fileHeader.Filename)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
-		}
+			fileBytes := make([]byte, fileHeader.Size)
+			_, err = fileContent.Read(fileBytes)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, map[string]string{"error": "could not read file"})
+				return
+			}
 
-		uploadedFiles = append(uploadedFiles, models.FileMetadata{
-			FileName: uploadedFile.FileName,
-			Size:     uploadedFile.Size,
-		})
+			uploadedFile, err := h.FileDataAccess.UploadFile(c.Request().Context(), fileBytes, fileHeader.Filename)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+				return
+			}
+
+			mu.Lock()
+			uploadedFiles = append(uploadedFiles, models.FileMetadata{
+				FileName: uploadedFile.FileName,
+				Size:     uploadedFile.Size,
+			})
+			mu.Unlock()
+
+		}(c, fileHeader)
 	}
 
+	wg.Wait()
 	return c.JSON(http.StatusCreated, uploadedFiles)
 }
 
