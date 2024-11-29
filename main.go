@@ -17,7 +17,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error initializing MinIO client: %v", err)
 	}
-
 	// Create FileDataAccess instance
 	fileDataAccess := dataAccess.NewFileDataAccess(minioClient)
 
