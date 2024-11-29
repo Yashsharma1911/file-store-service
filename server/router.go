@@ -5,6 +5,9 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+/**
+* Setup routers and middlewares here
+ */
 func SetupRouter(e *echo.Echo, h handlers.Handlers) {
 	e.POST("/files", h.AddFile)
 	e.GET("/files", h.ListFiles)

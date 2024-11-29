@@ -76,7 +76,7 @@ func (h *Handlers) GetFile(c echo.Context) error {
 	return c.JSON(http.StatusOK, fileMetadata)
 }
 
-// ListFiles handles fetching a list of files
+// ListFiles handles fetching all files
 func (h *Handlers) ListFiles(c echo.Context) error {
 	files, err := h.FileDataAccess.ListFiles(c.Request().Context())
 	if err != nil {
