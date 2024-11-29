@@ -43,13 +43,14 @@ func (f *FileDataAccess) UploadFile(ctx context.Context, file []byte, fileName s
 
 // GetFileMetadata retrieves metadata for a file from MinIO.
 func (f *FileDataAccess) GetFileMetadata(ctx context.Context, fileName string) (*models.FileMetadata, error) {
-	_, err := f.MinIOClient.Client.StatObject(ctx, f.MinIOClient.Bucket, fileName, minio.StatObjectOptions{})
+	object, err := f.MinIOClient.Client.StatObject(ctx, f.MinIOClient.Bucket, fileName, minio.StatObjectOptions{})
 	if err != nil {
 		return nil, fmt.Errorf("file does not exist: %v", err)
 	}
 
 	fileMetadata := &models.FileMetadata{
-		FileName: fileName,
+		FileName: object.Key,
+		Size:     object.Size,
 	}
 
 	return fileMetadata, nil
