@@ -2,6 +2,9 @@
 
 `store` is a command-line tool for interacting with your store service. This README will guide you through installation, setup, and usage of the tool.
 
+<img src="https://github.com/user-attachments/assets/6ca653c2-95fd-4a9a-90e1-d86c01b851ab" alt="Alt text" width="700"/>
+
+
 ### Prerequisites
 
 Before you start, ensure that you have the following tools installed on your system:
