@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: file-store-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: file-store-server
+  template:
+    metadata:
+      labels:
+        app: file-store-server
+    spec:
+      containers:
+        - name: file-store-server
+          image: yashsharma1911/file-store:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MINIO_ENDPOINT
+              value: "minio-service:9000"  # Internal MinIO service URL
+            - name: MINIO_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret  # Fetch from the MinIO secret
+                  key: MINIO_ROOT_USER
+            - name: MINIO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret
+                  key: MINIO_ROOT_PASSWORD

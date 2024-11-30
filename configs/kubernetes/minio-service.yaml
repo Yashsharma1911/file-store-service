@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-service
+spec:
+  selector:
+    app: minio
+  ports:
+    - protocol: TCP
+      port: 9000  # MinIO's service port
+      targetPort: 9000
+  clusterIP: None  # Headless service to resolve internal DNS names

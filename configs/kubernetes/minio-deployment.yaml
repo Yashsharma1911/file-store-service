@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      containers:
+        - name: minio
+          image: quay.io/minio/minio:latest
+          ports:
+            - containerPort: 9000
+          envFrom:
+            - secretRef:
+                name: minio-secret  # Use the secret for MinIO access keys
+          volumeMounts:
+            - name: minio-data
+              mountPath: /data  # MinIO's data directory
+          command:
+            - "server"
+            - "/data"
+      volumes:
+        - name: minio-data
+          persistentVolumeClaim:
+            claimName: minio-pvc  # Reference the PVC
