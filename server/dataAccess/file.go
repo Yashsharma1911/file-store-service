@@ -28,7 +28,11 @@ func NewFileDataAccess(minioClient *database.MinIOClient) *FileDataAccess {
 
 // UploadFile uploads a file to MinIO and returns file metadata.
 func (f *FileDataAccess) UploadFile(ctx context.Context, file []byte, fileName string) (*models.FileMetadata, error) {
-	_, err := f.MinIOClient.Client.PutObject(ctx, f.MinIOClient.Bucket, fileName, bytes.NewReader(file), int64(len(file)), minio.PutObjectOptions{})
+	_, err := f.MinIOClient.Client.PutObject(ctx, f.MinIOClient.Bucket, fileName, bytes.NewReader(file), int64(len(file)), minio.PutObjectOptions{
+		UserMetadata: map[string]string{
+			"data": string(file),
+		},
+	})
 	if err != nil {
 		return nil, fmt.Errorf("could not upload file: %v", err)
 	}
@@ -112,4 +116,19 @@ func (f *FileDataAccess) ListFiles(ctx context.Context) ([]*models.FileMetadata,
 	}
 
 	return files, nil
+}
+
+// GetFileContent retrieves the content of a file from MinIO.
+func (f *FileDataAccess) GetFileContent(ctx context.Context, fileName string) (string, error) {
+	object, err := f.MinIOClient.Client.StatObject(ctx, f.MinIOClient.Bucket, fileName, minio.StatObjectOptions{})
+	if err != nil {
+		return "", fmt.Errorf("file does not exist: %v", err)
+	}
+	userMetadata := object.UserMetadata
+	data, exists := userMetadata["Data"]
+	if !exists {
+		return "", fmt.Errorf("no data metadata found for file: %s", fileName)
+	}
+
+	return data, nil
 }

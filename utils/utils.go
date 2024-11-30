@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 )
 
 // MakeRequest is a generic function to make HTTP requests
@@ -30,4 +31,20 @@ func MakeRequest(method, url string, body io.Reader, contentType string) ([]byte
 	}
 
 	return respBody, nil
+}
+
+// CountWords counts the words in string
+// Spaces does not count
+//
+// Example "New System"
+// return 2
+func CountWords(fileContent string) (int, error) {
+	if fileContent == "" {
+		return 0, nil
+	}
+
+	// Split content by spaces and count words
+	words := strings.Fields(fileContent)
+
+	return len(words), nil
 }

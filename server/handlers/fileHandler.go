@@ -1,3 +1,6 @@
+// This file contains CRUD operations on file
+//
+// Add | Update | Delete | List All Files
 package handlers
 
 import (
