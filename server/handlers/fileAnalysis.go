@@ -5,12 +5,20 @@ package handlers
 import (
 	"fmt"
 	"net/http"
+	"sort"
+	"strings"
 	"sync"
+	"unicode"
 
 	"github.com/Yashsharma1911/file-store-service/server/models"
 	"github.com/Yashsharma1911/file-store-service/utils"
 	"github.com/labstack/echo/v4"
 )
+
+type Word struct {
+	Word  string
+	Count int
+}
 
 // WordCount calculates the total word count across all files stored in the MinIO server.
 func (h *Handlers) WordCount(c echo.Context) error {
@@ -62,4 +70,76 @@ func (h *Handlers) WordCount(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]string{
 		"message": fmt.Sprintf("Total word count is %d", totalWords),
 	})
+}
+
+// MostFrequentWords processes files to find the most/least frequent words.
+func (h *Handlers) MostFrequentWords(c echo.Context) error {
+	ctx := c.Request().Context()
+
+	files, _ := h.FileDataAccess.ListFiles(ctx)
+	limit, order := utils.DefaultParams(c)
+	// Word frequency map
+	wordFreq := make(map[string]int)
+	var mu sync.Mutex
+	var wg sync.WaitGroup
+
+	for _, file := range files {
+		wg.Add(1)
+		go func(file *models.FileMetadata) {
+			defer wg.Done()
+
+			fileContent, err := h.FileDataAccess.GetFileContent(ctx, file.FileName)
+			if err != nil {
+				fmt.Printf("Error fetching file content for %s: %v\n", file.FileName, err)
+				return
+			}
+
+			// Tokenize words and update word frequencies
+			// Tokenize text based on letters and numbers while ignoring any non-letter, non-number characters
+			words := strings.FieldsFunc(string(fileContent), func(r rune) bool {
+				return !unicode.IsLetter(r) && !unicode.IsNumber(r)
+			})
+
+			// Local frequency is map to hold current goroutine processed data
+			// this is to ensure each goroutine is independent and does not wait for wordFreq (Global map) to get free
+			localFreq := make(map[string]int)
+			for _, word := range words {
+				normalizedWord := strings.ToLower(word)
+				localFreq[normalizedWord]++
+			}
+
+			mu.Lock()
+			for word, count := range localFreq {
+				wordFreq[word] += count
+			}
+			mu.Unlock()
+		}(file)
+	}
+
+	wg.Wait()
+
+	// Convert word frequency map to a slice
+	freqSlice := make([]Word, 0, len(wordFreq))
+
+	for word, count := range wordFreq {
+		freqSlice = append(freqSlice, struct {
+			Word  string
+			Count int
+		}{Word: word, Count: count})
+	}
+
+	// Sort based on frequency
+	sort.Slice(freqSlice, func(i, j int) bool {
+		if order == "asc" {
+			return freqSlice[i].Count < freqSlice[j].Count
+		}
+		return freqSlice[i].Count > freqSlice[j].Count
+	})
+
+	// Limit results
+	if limit < len(freqSlice) {
+		freqSlice = freqSlice[:limit]
+	}
+
+	return c.JSON(http.StatusOK, freqSlice)
 }
