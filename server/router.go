@@ -15,4 +15,5 @@ func SetupRouter(e *echo.Echo, h handlers.Handlers) {
 	e.DELETE("/files/:name", h.RemoveFile)
 	e.PUT("/files/:name", h.UpdateFile)
 	e.GET("/wc", h.WordCount)
+	e.GET("/frequent", h.MostFrequentWords)
 }

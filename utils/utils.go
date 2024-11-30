@@ -4,7 +4,10 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
+
+	"github.com/labstack/echo/v4"
 )
 
 // MakeRequest is a generic function to make HTTP requests
@@ -47,4 +50,27 @@ func CountWords(fileContent string) (int, error) {
 	words := strings.Fields(fileContent)
 
 	return len(words), nil
+}
+
+// DefaultParams return default parameters
+// [limit | 10]
+// [order | "asc"/"dsc"]
+func DefaultParams(c echo.Context) (int, string) {
+	limit := 10
+	order := "dsc"
+	if l := c.QueryParam("limit"); l != "" {
+		parsedLimit, err := strconv.Atoi(l)
+		if err != nil || parsedLimit <= 0 {
+			return 10, "dsc"
+		}
+		limit = parsedLimit
+	}
+
+	if o := c.QueryParam("order"); o != "" {
+		if o != "asc" && o != "dsc" {
+			return 10, "dsc"
+		}
+		order = o
+	}
+	return limit, order
 }
