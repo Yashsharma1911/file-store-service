@@ -19,14 +19,16 @@ spec:
             - containerPort: 9000
           envFrom:
             - secretRef:
-                name: minio-secret  # Use the secret for MinIO access keys
+                name: minio-secret 
           volumeMounts:
             - name: minio-data
-              mountPath: /data  # MinIO's data directory
+              mountPath: /data
           command:
-            - "server"
-            - "/data"
+            - /bin/bash
+            - -c
+          args: 
+            - minio server /data --console-address :9090
       volumes:
         - name: minio-data
           persistentVolumeClaim:
-            claimName: minio-pvc  # Reference the PVC
+            claimName: minio-pvc 

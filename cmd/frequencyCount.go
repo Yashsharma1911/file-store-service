@@ -23,7 +23,7 @@ var frequencyCountCmd = &cobra.Command{
 			order = "dsc"
 		}
 
-		respBody, err := utils.MakeRequest("GET", fmt.Sprintf("http://localhost:8080/api/frequent?limit=%s&order=%s", limit, order), nil, "")
+		respBody, err := utils.MakeRequest("GET", fmt.Sprintf("%s/api/frequent?limit=%s&order=%s", endpoint, limit, order), nil, "")
 		if err != nil {
 			fmt.Printf("Error making request: %v\n", err)
 			return

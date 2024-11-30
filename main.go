@@ -29,5 +29,5 @@ func main() {
 	server.SetupRouter(e, *h)
 
 	// Start the server on port 8080
-	log.Fatal(e.Start(":8080"))
+	log.Fatal(e.Start(":30000"))
 }

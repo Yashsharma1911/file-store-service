@@ -12,7 +12,9 @@ export MINIO_ROOT_PASSWORD="zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG"
 export MINIO_ENDPOINT="play.min.io"
 export MINIO_BUCKET="testbucket"
 export MINIO_USE_SSL=true
-
+export FILE_STORE_SERVER_URL=""
+export FILE_STORE_SERVER_URL="http://localhost:30000"
+echo "Server starting at : $FILE_STORE_SERVER_URL"
 # Build the echo-server binary
 echo "Building echo-server..."
 go build -o echo-server .

@@ -19,13 +19,17 @@ spec:
             - containerPort: 8080
           env:
             - name: MINIO_ENDPOINT
-              value: "minio-service:9000"  # Internal MinIO service URL
-            - name: MINIO_ACCESS_KEY
+              value: "minio-service:9000"
+            - name: MINIO_BUCKET
+              value: "testbucket"
+            - name: MINIO_USE_SSL
+              value: "false"
+            - name: MINIO_ROOT_USER
               valueFrom:
                 secretKeyRef:
-                  name: minio-secret  # Fetch from the MinIO secret
+                  name: minio-secret
                   key: MINIO_ROOT_USER
-            - name: MINIO_SECRET_KEY
+            - name: MINIO_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: minio-secret

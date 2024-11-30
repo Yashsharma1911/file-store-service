@@ -36,7 +36,7 @@ services:
       MINIO_BUCKET: "testbucket"
       MINIO_USE_SSL: false
     ports:
-      - "8080:8080"
+      - "30000:30000"
     depends_on:
       minio:
         condition: service_healthy

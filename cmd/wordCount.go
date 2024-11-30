@@ -11,7 +11,7 @@ var wordCountCmd = &cobra.Command{
 	Use:   "wc",
 	Short: "Get word count of all files present in file store",
 	Run: func(cmd *cobra.Command, args []string) {
-		respBody, err := utils.MakeRequest("GET", "http://localhost:8080/api/wc", nil, "")
+		respBody, err := utils.MakeRequest("GET", fmt.Sprintf("%s/api/wc", endpoint), nil, "")
 		if err != nil {
 			fmt.Printf("Error making request: %v\n", err)
 			return

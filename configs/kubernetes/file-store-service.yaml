@@ -7,7 +7,7 @@ spec:
     app: file-store-server
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 8080
-      nodePort: 9000  # Exposing on localhost:9000
+      port: 30000 
+      targetPort: 30000 
+      nodePort: 30000 
   type: NodePort

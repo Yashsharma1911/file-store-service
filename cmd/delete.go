@@ -14,7 +14,7 @@ var deleteCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fileName := args[0]
 
-		respBody, err := utils.MakeRequest("DELETE", fmt.Sprintf("http://localhost:8080/api/files/%s", fileName), nil, "")
+		respBody, err := utils.MakeRequest("DELETE", fmt.Sprintf("%s/api/files/%s", endpoint, fileName), nil, "")
 		if err != nil {
 			fmt.Printf("Error making request: %v\n", err)
 			return
