@@ -11,7 +11,7 @@ var listCmd = &cobra.Command{
 	Use:   "ls",
 	Short: "List all files in the store",
 	Run: func(cmd *cobra.Command, args []string) {
-		respBody, err := utils.MakeRequest("GET", "http://localhost:8080/files", nil, "")
+		respBody, err := utils.MakeRequest("GET", "http://localhost:8080/api/files", nil, "")
 		if err != nil {
 			fmt.Printf("Error making request: %v\n", err)
 			return

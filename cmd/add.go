@@ -41,7 +41,7 @@ var addCmd = &cobra.Command{
 		}
 
 		_ = writer.Close()
-		url := "http://localhost:8080/files"
+		url := "http://localhost:8080/api/files"
 
 		respBody, err := utils.MakeRequest("POST", url, body, writer.FormDataContentType())
 		if err != nil {

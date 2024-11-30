@@ -2,8 +2,9 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
+
 	"github.com/Yashsharma1911/file-store-service/utils"
+	"github.com/spf13/cobra"
 )
 
 var deleteCmd = &cobra.Command{
@@ -13,7 +14,7 @@ var deleteCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fileName := args[0]
 
-		respBody, err := utils.MakeRequest("DELETE", fmt.Sprintf("http://localhost:8080/files/%s", fileName), nil, "")
+		respBody, err := utils.MakeRequest("DELETE", fmt.Sprintf("http://localhost:8080/api/files/%s", fileName), nil, "")
 		if err != nil {
 			fmt.Printf("Error making request: %v\n", err)
 			return

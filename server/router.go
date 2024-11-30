@@ -9,11 +9,17 @@ import (
 * Setup routers and middlewares here
  */
 func SetupRouter(e *echo.Echo, h handlers.Handlers) {
-	e.POST("/files", h.AddFile)
-	e.GET("/files", h.ListFiles)
-	e.GET("/files/:name", h.GetFile)
-	e.DELETE("/files/:name", h.RemoveFile)
-	e.PUT("/files/:name", h.UpdateFile)
-	e.GET("/wc", h.WordCount)
-	e.GET("/frequent", h.MostFrequentWords)
+	// Group API routes under "/api"
+	api := e.Group("/api")
+
+	// File routes
+	api.POST("/files", h.AddFile)
+	api.GET("/files", h.ListFiles)
+	api.GET("/files/:name", h.GetFile)
+	api.DELETE("/files/:name", h.RemoveFile)
+	api.PUT("/files/:name", h.UpdateFile)
+
+	// Word count and frequency routes
+	api.GET("/wc", h.WordCount)
+	api.GET("/frequent", h.MostFrequentWords)
 }

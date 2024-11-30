@@ -43,7 +43,7 @@ var updateCmd = &cobra.Command{
 
 		_ = writer.Close()
 
-		url := fmt.Sprintf("http://localhost:8080/files/%s", fileName)
+		url := fmt.Sprintf("http://localhost:8080/api/files/%s", fileName)
 		respBody, err := utils.MakeRequest("PUT", url, body, writer.FormDataContentType())
 		if err != nil {
 			fmt.Printf("Error making request: %v\n", err)
