@@ -27,8 +27,7 @@ services:
       timeout: 5s
 
   echo-server:
-    build:
-      context: .  # Dockerfile must be in the current directory
+    image: yashsharma1911/file-store:latest
     container_name: echo-server
     environment:
       MINIO_ENDPOINT: "minio:9000"
