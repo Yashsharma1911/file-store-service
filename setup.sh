@@ -28,6 +28,10 @@ echo "Installing store command..."
 go install ./cmd/store
 echo "store command installed successfully."
 
+echo ""
+echo "Yay 🎉 you can now start using "store" command anywhere in you system"
+echo "example run: store ls"
+echo ""
 # Run echo-server
 echo "Starting echo-server..."
 ./echo-server
