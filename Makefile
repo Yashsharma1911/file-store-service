@@ -1,12 +1,10 @@
-# Define the shell to use for running commands
 SHELL := /bin/bash
 
-# Define the paths to your scripts
 KUBERNETES_DEPLOYMENT_SCRIPT := ./scripts/setup-kubernetes.sh
 PLAYGROUND_SERVER_SCRIPT := ./scripts/setup-local-server.sh
 UNINSTALL_SCRIPT := ./scripts/uninstall-kubernetes.sh
 
-# Define the targets
+# Targets
 .PHONY: kubernetes-deployment playground-server
 
 # Target to run the Kubernetes deployment script
