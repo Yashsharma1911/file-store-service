@@ -25,9 +25,10 @@ var listCmd = &cobra.Command{
 			fmt.Println("No files found.")
 			return
 		}
+
+		fmt.Printf("%s\t%s\n\n", "File Name", "File Size")
 		for _, file := range fileMetadata {
 			size := file.Size
-			fmt.Printf("%s\t%s\n\n", "File Name", "File Size")
 			fmt.Printf("%s\t%d\n", file.FileName, size)
 		}
 	},

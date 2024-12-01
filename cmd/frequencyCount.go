@@ -37,6 +37,8 @@ var frequencyCountCmd = &cobra.Command{
 			fmt.Println("No files found.")
 			return
 		}
+
+		fmt.Printf("%s\t%s\n\n", "Word", "Count")
 		for _, word := range wordCount {
 			// Convert size to KB for better readability
 			count := word.Count
