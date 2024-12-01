@@ -69,6 +69,13 @@ make docker-up
 ```bash
 docker compose up
 ```
+# Suported Commands
+`store add [file path] [file2 path]` - Store file to server, if file already exist on server it will return error for that file<br>
+`store ls` - List of all stored files<br>
+`store update [file path]` - Update existing file content, if file not exist it will create a new file<br>
+`store rm [file name]` - Remove file from store.<br>
+`store wc` - Get total number of words present in all files. <br>
+`store freq-words [--limit|-n 10] [--order=dsc|asc]` - List of least or most frequent words, use `--order` to change order of least or most and use `--limit | -n` flag for the number of words you want to check, default is 10 <br>
 
 # System Achitecture
 <img src="https://github.com/user-attachments/assets/6ca653c2-95fd-4a9a-90e1-d86c01b851ab" alt="Alt text" width="700"/>
