@@ -24,7 +24,7 @@ You can run CLI application and use public minio server to host file, this is ef
 git clone https://github.com/Yashsharma1911/file-store-service
 cd file-store-service
 ```
-2. After clone get successful, run the below command (Note: `make` command should be installed in your system if not run next command of it)
+2. After clone get successful, run the below command (Note: `make` command should be installed in your system if it is not then run next command of it)
 
 ```bash
 make local-server
