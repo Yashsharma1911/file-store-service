@@ -3,9 +3,7 @@ package cmd
 import (
 	"bytes"
 	"fmt"
-	"io"
 	"mime/multipart"
-	"os"
 	"path/filepath"
 
 	"github.com/Yashsharma1911/file-store-service/utils"
@@ -19,25 +17,12 @@ var updateCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		filePath := args[0]
 		fileName := filepath.Base(filePath)
-		file, err := os.Open(filePath)
-		if err != nil {
-			fmt.Printf("Error opening file: %v\n", err)
-			return
-		}
-		defer file.Close()
 
 		body := &bytes.Buffer{}
 		writer := multipart.NewWriter(body)
 
-		part, err := writer.CreateFormFile("file", fileName)
-		if err != nil {
-			fmt.Printf("Error creating form file: %v\n", err)
-			return
-		}
-
-		_, err = io.Copy(part, file)
-		if err != nil {
-			fmt.Printf("Error copying file content: %v\n", err)
+		if err := utils.AddFileToWriter(writer, "file", filePath); err != nil {
+			fmt.Println(err)
 			return
 		}
 
@@ -50,7 +35,7 @@ var updateCmd = &cobra.Command{
 			return
 		}
 
-		fmt.Println("Response:", string(respBody))
+		fmt.Println(string(respBody))
 	},
 }
 

@@ -3,9 +3,7 @@ package cmd
 import (
 	"bytes"
 	"fmt"
-	"io"
 	"mime/multipart"
-	"os"
 
 	"github.com/Yashsharma1911/file-store-service/utils"
 	"github.com/spf13/cobra"
@@ -20,22 +18,8 @@ var addCmd = &cobra.Command{
 		writer := multipart.NewWriter(body)
 
 		for _, filePath := range args {
-			file, err := os.Open(filePath)
-			if err != nil {
-				fmt.Printf("Error opening file %s: %v\n", filePath, err)
-				continue
-			}
-			defer file.Close()
-
-			part, err := writer.CreateFormFile("files", filePath)
-			if err != nil {
-				fmt.Printf("Error creating form file for %s: %v\n", filePath, err)
-				continue
-			}
-
-			_, err = io.Copy(part, file)
-			if err != nil {
-				fmt.Printf("Error copying content for %s: %v\n", filePath, err)
+			if err := utils.AddFileToWriter(writer, "files", filePath); err != nil {
+				fmt.Println(err)
 				continue
 			}
 		}
@@ -43,13 +27,13 @@ var addCmd = &cobra.Command{
 		_ = writer.Close()
 		url := fmt.Sprintf("%s/api/files", endpoint)
 
-		_, err := utils.MakeRequest("POST", url, body, writer.FormDataContentType())
+		respBody, err := utils.MakeRequest("POST", url, body, writer.FormDataContentType())
 		if err != nil {
 			fmt.Println("Error making request:", err)
 			return
 		}
 
-		fmt.Println("File uploaded")
+		fmt.Println(string(respBody))
 	},
 }
 

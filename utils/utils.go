@@ -3,7 +3,9 @@ package utils
 import (
 	"fmt"
 	"io"
+	"mime/multipart"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 
@@ -73,4 +75,25 @@ func DefaultParams(c echo.Context) (int, string) {
 		order = o
 	}
 	return limit, order
+}
+
+// AddFileToWriter takes file path and write it to multipart writer and return error
+func AddFileToWriter(writer *multipart.Writer, fieldName, filePath string) error {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return fmt.Errorf("error opening file %s: %w", filePath, err)
+	}
+	defer file.Close()
+
+	part, err := writer.CreateFormFile(fieldName, filePath)
+	if err != nil {
+		return fmt.Errorf("error creating form file for %s: %w", filePath, err)
+	}
+
+	_, err = io.Copy(part, file)
+	if err != nil {
+		return fmt.Errorf("error copying content for %s: %w", filePath, err)
+	}
+
+	return nil
 }
