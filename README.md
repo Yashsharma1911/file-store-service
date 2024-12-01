@@ -60,7 +60,7 @@ make uninstall-deployment
 
 ## Deploy file store in Docker (Optional)
 
-Run below command to deploy application constainers, it will start Minio container exposed at `:9000` port and will start server container at `:30000` port
+Run below command to deploy application constainers, it will start Minio container exposed at `:9000` port and will start server container at `:30000` port.
 
 ```bash
 make docker-up
@@ -69,6 +69,9 @@ make docker-up
 ```bash
 docker compose up
 ```
+#### Additional
+Checkout File Store CLI [docker image](https://hub.docker.com/repository/docker/yashsharma1911/file-store/general)
+
 # Suported Commands
 `store add [file path] [file2 path]` - Store file to server, if file already exist on server it will return error for that file<br>
 `store ls` - List of all stored files<br>
