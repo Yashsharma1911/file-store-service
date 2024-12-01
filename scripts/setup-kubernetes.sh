@@ -24,7 +24,7 @@ kubectl apply -f configs/kubernetes/file-store-deployment.yaml
 kubectl apply -f configs/kubernetes/file-store-service.yaml
 echo ""
 echo "Waiting for server to start..."
-sleep 10  # 
+sleep 20  # 
 # Build the store binary
 echo ""
 echo "Building store..."

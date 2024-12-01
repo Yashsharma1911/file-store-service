@@ -15,11 +15,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type Word struct {
-	Word  string
-	Count int
-}
-
 // WordCount calculates the total word count across all files stored in the MinIO server.
 func (h *Handlers) WordCount(c echo.Context) error {
 	var totalWords int
@@ -119,7 +114,7 @@ func (h *Handlers) MostFrequentWords(c echo.Context) error {
 	wg.Wait()
 
 	// Convert word frequency map to a slice
-	freqSlice := make([]Word, 0, len(wordFreq))
+	freqSlice := make([]models.Word, 0, len(wordFreq))
 
 	for word, count := range wordFreq {
 		freqSlice = append(freqSlice, struct {

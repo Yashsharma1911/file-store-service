@@ -7,3 +7,9 @@ type FileMetadata struct {
 	// CheckSum will store CRC32C checksum of file
 	// CheckSum string `json:"check_sum" db:"check_sum"`
 }
+
+// Word count struct of file
+type Word struct {
+	Word  string
+	Count int
+}

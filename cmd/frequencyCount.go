@@ -1,8 +1,10 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 
+	"github.com/Yashsharma1911/file-store-service/server/models"
 	"github.com/Yashsharma1911/file-store-service/utils"
 	"github.com/spf13/cobra"
 )
@@ -28,8 +30,18 @@ var frequencyCountCmd = &cobra.Command{
 			fmt.Printf("Error making request: %v\n", err)
 			return
 		}
+		var wordCount []models.Word
+		_ = json.Unmarshal(respBody, &wordCount)
 
-		fmt.Println(string(respBody))
+		if len(wordCount) == 0 {
+			fmt.Println("No files found.")
+			return
+		}
+		for _, word := range wordCount {
+			// Convert size to KB for better readability
+			count := word.Count
+			fmt.Printf("%s\t%d\n", word.Word, count)
+		}
 	},
 }
 

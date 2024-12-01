@@ -43,13 +43,13 @@ var addCmd = &cobra.Command{
 		_ = writer.Close()
 		url := fmt.Sprintf("%s/api/files", endpoint)
 
-		respBody, err := utils.MakeRequest("POST", url, body, writer.FormDataContentType())
+		_, err := utils.MakeRequest("POST", url, body, writer.FormDataContentType())
 		if err != nil {
 			fmt.Println("Error making request:", err)
 			return
 		}
 
-		fmt.Println(string(respBody))
+		fmt.Println("File uploaded")
 	},
 }
 
