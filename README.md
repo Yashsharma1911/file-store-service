@@ -2,8 +2,6 @@
 
 `store` is a command-line tool for interacting with your store service. This README will guide you through installation, setup, and usage of the tool.
 
-
-
 ### Prerequisites
 
 Before you start, ensure that you have the following tools installed on your system:
@@ -16,25 +14,31 @@ Before you start, ensure that you have the following tools installed on your sys
 ## Quick start
 You can run CLI application and use public minio server to host file, this is effect to run and test CLI application quickly
 
-Clone the repository to your local machine using the following command:
+1. Clone the repository to your local machine using the following command:
 ```bash
 git clone https://github.com/Yashsharma1911/file-store-service
 cd file-store-service
 ```
-After clone get successful, run the below command (Note: `make` command should be installed in your system if not run next command of it)
+2. After clone get successful, run the below command (Note: `make` command should be installed in your system if not run next command of it)
 
 ```bash
 make local-server
 ```
 
-**[Alternative]** : If `make` is not installed in your system, copy this and run in your root dir of repo.
+2. **[Alternative]** : If `make` is not installed in your system, copy this and run in your root dir of repo.
 ```bash
 ./scripts/setup-local-server.sh
 ```
 
-Now open a new terminal and test CLI by adding a file to server
+3. **Now open a new terminal** and test CLI by adding a file to server
 ```bash
 store add [file path]
+
+# If you are in root dir of project you can run the below command also
+store add examples/newText.txt
+
+# Use "" in file path if you want to upload two files or if there is space ora  special character in your path
+store add "examples/newText.txt" "examples/test.txt"
 ```
 
 Use below command to see list of stored files
