@@ -17,6 +17,6 @@ COPY . .
 RUN GOOS=linux GOARCH=amd64 go build -o main .
 
 # Expose the port the app runs on
-EXPOSE 8080
+EXPOSE 30000
 
 CMD ["./main"]
