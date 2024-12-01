@@ -15,21 +15,21 @@ spec:
       containers:
         - name: file-store-server
           image: yashsharma1911/file-store:latest
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: 30000
-            initialDelaySeconds: 10    # Time to wait before performing the first check
-            periodSeconds: 30         # Interval between checks
-            failureThreshold: 3       # Number of failures before considering the container unhealthy
-            timeoutSeconds: 5        # Time to wait for a response before marking the probe as failed
+          # livenessProbe:
+          #   httpGet:
+          #     path: /healthz
+          #     port: 30000
+          #   initialDelaySeconds: 10    
+          #   periodSeconds: 30         
+          #   failureThreshold: 3      
+          #   timeoutSeconds: 5    
           ports:
             - containerPort: 30000
           env:
             - name: MINIO_ENDPOINT
               value: "minio-service:9000"
             - name: MINIO_BUCKET
-              value: "testBucketFileStore"
+              value: "testbucket"
             - name: MINIO_USE_SSL
               value: "false"
             - name: MINIO_ROOT_USER
