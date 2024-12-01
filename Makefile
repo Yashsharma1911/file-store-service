@@ -3,7 +3,7 @@ SHELL := /bin/bash
 KUBERNETES_DEPLOYMENT_SCRIPT := ./scripts/setup-kubernetes.sh
 PLAYGROUND_SERVER_SCRIPT := ./scripts/setup-local-server.sh
 UNINSTALL_SCRIPT := ./scripts/uninstall-kubernetes.sh
-
+DOCKER_SCRIPT := ./scripts/setup-docker.sh
 # Targets
 .PHONY: kubernetes-deployment playground-server
 
@@ -17,5 +17,9 @@ local-server:
 	@bash $(PLAYGROUND_SERVER_SCRIPT)
 
 # Delete all the file store resources deployed in k8s
-uninstall-kubernetes:
+uninstall-kubernetes-deployment:
 	@bash $(UNINSTALL_SCRIPT)
+
+# docker-up uses docker compose command to deploy application in docker
+docker-up:
+	@bash $(DOCKER_SCRIPT)
