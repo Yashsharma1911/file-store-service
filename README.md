@@ -56,7 +56,7 @@ Use below command to uninstall resources
 make uninstall-deployment
 ```
 
-**Note**: Sometimes there can be issue with pod deployment, if it doesn't auto started, try to uninstall resources and install again
+**Note**: Health check is implemented, in case of any error deployment will restart. Even after this if you are not able to use application, use `kubectl get pods` to check health of pods and in case it still crashing try to reinstall resources by above command
 
 ## Deploy file store in Docker (Optional)
 
