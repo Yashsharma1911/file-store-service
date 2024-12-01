@@ -37,7 +37,7 @@ If `make` is unavailable, use the script directly:
 chmod +x ./scripts/setup-docker.sh
 ./scripts/setup-docker.sh
 ```
-For macOS Z Shell users, update the path using below command to reflect changes or restart the terminal:
+For Z Shell (~zsh) users, update the path using below command to reflect changes or restart the terminal:
 ```bash
 echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.zshrc && source ~/.zshrc
 ```
