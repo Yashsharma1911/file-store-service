@@ -17,7 +17,7 @@ Before you start, ensure that you have the following tools installed on your sys
 
 # Installation
 ## Quick start
-You can run CLI application and use public minio server to host file, this is effect to run and test CLI application quickly
+You can run CLI application and use public minio server to host file, this is easy to run and test CLI application quickly
 
 1. Clone the repository to your local machine using the following command:
 ```bash
