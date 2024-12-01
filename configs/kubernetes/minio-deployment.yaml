@@ -17,6 +17,14 @@ spec:
           image: quay.io/minio/minio:latest
           ports:
             - containerPort: 9000
+          livenessProbe: # Health check of deployment
+            httpGet:
+              path: /healthz
+              port: 9000
+            initialDelaySeconds: 10
+            periodSeconds: 30       
+            failureThreshold: 3       
+            timeoutSeconds: 5  
           envFrom:
             - secretRef:
                 name: minio-secret 
