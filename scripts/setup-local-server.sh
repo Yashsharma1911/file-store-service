@@ -10,7 +10,7 @@ set -e
 export MINIO_ROOT_USER="Q3AM3UQ867SPQQA43P2F"
 export MINIO_ROOT_PASSWORD="zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG"
 export MINIO_ENDPOINT="play.min.io"
-export MINIO_BUCKET="fileStoreBucketTest"
+export MINIO_BUCKET="runtestbucket"
 export MINIO_USE_SSL=true
 export FILE_STORE_SERVER_URL=""
 export FILE_STORE_SERVER_URL="http://localhost:30000"

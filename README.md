@@ -1,6 +1,11 @@
 # File Store System CLI
 
-`store` is a command-line tool for interacting with your store service. This README will guide you through installation, setup, and usage of the tool.
+`store` is a command-line tool to manage your files and provide self host environment. This README will guide you through installation, setup, and usage of the tool.
+
+### Example
+In this video I used kubernetes to run application however it is optional, checkout Installation part to run application locally quickly
+<br>
+![Description of GIF](assets\example-recording.gif)
 
 ### Prerequisites
 
@@ -37,7 +42,7 @@ store add [file path]
 # If you are in root dir of project you can run the below command also
 store add examples/newText.txt
 
-# Use "" in file path if you want to upload two files or if there is space ora  special character in your path
+# Use "" in file path if you want to upload two files or if there is space or a special character in your path
 store add "examples/newText.txt" "examples/test.txt"
 ```
 
@@ -52,6 +57,11 @@ You can deploy file store to your kubernetes cluster, run below make command whi
 
 ```bash
 make kubernetes-deployment
+```
+
+**[Alternative]** : if `make` is not installed run below command in root dir of project
+```bash
+./scripts/setup-kubernetes.sh
 ```
 
 Use below command to uninstall resources
