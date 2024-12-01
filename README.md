@@ -27,9 +27,9 @@ After clone get successful, run the below command (Note: `make` command should b
 make local-server
 ```
 
-**[Alternative]** : If `make` is not installed in your system, copy this and run in your root dir of repo if `make` is not installed in your system
+**[Alternative]** : If `make` is not installed in your system, copy this and run in your root dir of repo.
 ```bash
-./scripts/setup.sh
+./scripts/setup-local-server.sh
 ```
 
 Now open a new terminal and test CLI by adding a file to server
