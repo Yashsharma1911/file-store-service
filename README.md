@@ -5,7 +5,7 @@
 ### Example
 In this video I used kubernetes to run application however it is optional, checkout Installation part to run application locally quickly
 <br>
-![Description of GIF](assets\example-recording.gif)
+![Description of GIF](assets/example-recording.gif)
 
 ### Prerequisites
 
