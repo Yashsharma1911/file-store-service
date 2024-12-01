@@ -7,7 +7,6 @@ import (
 )
 
 func TestCountWords(t *testing.T) {
-	// Define test cases with expected results
 	tests := []struct {
 		input    string
 		expected int
