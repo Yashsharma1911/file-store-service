@@ -2,7 +2,6 @@
 
 `store` is a command-line tool for interacting with your store service. This README will guide you through installation, setup, and usage of the tool.
 
-<img src="https://github.com/user-attachments/assets/6ca653c2-95fd-4a9a-90e1-d86c01b851ab" alt="Alt text" width="700"/>
 
 
 ### Prerequisites
@@ -13,45 +12,39 @@ Before you start, ensure that you have the following tools installed on your sys
 - [Go](https://golang.org/dl/)
 - [Docker](https://www.docker.com/products/docker-desktop) (Optional, if you're using Docker to run MinIO)
 
-### Step 1: Clone the Repository
+# Installation
+## Quick start
+You can run CLI application and use public minio server to host file, this is effect to run and test CLI application quickly
 
 Clone the repository to your local machine using the following command:
-
 ```bash
 git clone https://github.com/Yashsharma1911/file-store-service
 cd file-store-service
 ```
-### Step 2: Run playground server
+After clone get successful, run the below command (Note: `make` command should be installed in your system if not run next command of it)
 
-Run `make local-server`, it will start server locally and will connect to public minio server.
-
-Run make command, ensure you gave make command installed
 ```bash
 make local-server
 ```
 
-If not run below script through your terminal
+**[Alternative]** : If `make` is not installed in your system, copy this and run in your root dir of repo if `make` is not installed in your system
 ```bash
 ./scripts/setup.sh
 ```
 
-### Step 2: Test
-
-Run a test command to see it `store` is working
-
-```bash
-store ls
-```
-
-Run `add` command to store file, give a path of file, make sure to use "" if there is space between your file path
-
+Now open a new terminal and test CLI by adding a file to server
 ```bash
 store add [file path]
 ```
 
+Use below command to see list of stored files
+```bash
+store ls
+```
+
 ## Deploy file store in Kubernetes (Optional)
 
-You can run `make kubernetes-deployment` to do a auto resource deployment
+You can deploy file store to your kubernetes cluster, run below make command which will auto deploy kubernetes resources to run your application
 
 ```bash
 make kubernetes-deployment
@@ -63,12 +56,19 @@ Use below command to uninstall resources
 make uninstall-deployment
 ```
 
-*Note*: Sometimes there can be issue with pod deployment, if it doesn't auto started, try to uninstall resources and install again
+**Note**: Sometimes there can be issue with pod deployment, if it doesn't auto started, try to uninstall resources and install again
 
 ## Deploy file store in Docker (Optional)
 
-You can run `docker-compose up`
+Run below command to deploy application constainers, it will start Minio container exposed at `:9000` port and will start server container at `:30000` port
 
 ```bash
-docker-compose up
+make docker-up
 ```
+**[Alternative]** : if `make` is not installed
+```bash
+docker compose up
+```
+
+# System Achitecture
+<img src="https://github.com/user-attachments/assets/6ca653c2-95fd-4a9a-90e1-d86c01b851ab" alt="Alt text" width="700"/>
