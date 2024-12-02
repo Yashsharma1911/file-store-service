@@ -2,7 +2,7 @@
 
 `store` is a command-line tool to manage your files and provide self host environment. This README will guide you through installation, setup, and usage of the tool.
 
-Store uses MinIo bucket (blog storage) to store files. If you will use docker to run service it will store files in your current file store repo path. I've mentioned other types of deployment where we are leveraging the public server provided by MinIO and self host service like kubernetes deployment.
+Store uses MinIo bucket (blob storage) to store files. If you will use docker to run service it will store files in your current file store repo path. I've mentioned other types of deployment where we are leveraging the public server provided by MinIO and self host service like kubernetes deployment.
 ### Example
 In this video I used kubernetes to run application however it is optional, checkout Installation part to run application locally quickly
 <br>
