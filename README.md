@@ -17,7 +17,7 @@ Before you start, ensure that you have the following tools installed on your sys
 
 # Installation
 ## Quick start
-You can run CLI application and use public minio server to host file, this is easy to run and test CLI application quickly
+You can run CLI application and use public minio server to host file, this is easy to run and test CLI application quickly.
 
 1. Clone the repository to your local machine using the following command:
 ```bash
@@ -35,7 +35,7 @@ make local-server
 ./scripts/setup-local-server.sh
 ```
 
-3. **Now open a new terminal** and test CLI by adding a file to server
+3. **Now open a new terminal** and test CLI by adding a file to server.
 ```bash
 store add [file path]
 
@@ -46,16 +46,16 @@ store add examples/newText.txt
 store add "examples/newText.txt" "examples/test.txt"
 ```
 
-Use below command to see list of stored files
+Use below command to see list of stored files.
 ```bash
 store ls
 ```
 
 ## Deploy file store in Kubernetes (Optional)
 
-You can deploy file store to your kubernetes cluster, run below make command which will auto deploy kubernetes resources to run your application
+You can deploy file store to your kubernetes cluster, run below make command which will auto deploy kubernetes resources to run your application.
 
-**Note: ** After installation gets successful do run `kubectl get pods` to ensure deoployments are up and running
+**Note:** After installation gets successful do run `kubectl get pods` to ensure deployments are up and running.
 
 ```bash
 make kubernetes-deployment
@@ -66,7 +66,7 @@ make kubernetes-deployment
 ./scripts/setup-kubernetes.sh
 ```
 
-Use below command to uninstall resources
+Use below command to uninstall resources.
 
 ```bash
 make uninstall-deployment
@@ -79,7 +79,7 @@ Run below command to deploy application constainers, it will start Minio contain
 ```bash
 make docker-up
 ```
-**[Alternative]** : if `make` is not installed
+**[Alternative]** : if `make` is not installed.
 ```bash
 docker compose up
 ```
