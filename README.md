@@ -26,8 +26,8 @@ You can run CLI application and use public minio server to host file, this is ea
 git clone https://github.com/Yashsharma1911/file-store-service
 cd file-store-service
 chmod +x ./scripts/setup-local-server.sh
+echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.bashrc && source ~/.bashrc
 ./scripts/setup-local-server.sh
-echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.bashrc && source ~/.bashrc && go install ./cmd/store
 ```
 
 **Note:** It is suggested to use default terminal of your system. In case you're using any customized shell ensure to restart it, if you're using Z shell in Mac run `source ~/.zshrc` to take effect or restart the terminal.
