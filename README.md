@@ -55,6 +55,8 @@ store ls
 
 You can deploy file store to your kubernetes cluster, run below make command which will auto deploy kubernetes resources to run your application
 
+**Note: ** After installation gets successful do run `kubectl get pods` to ensure deoployments are up and running
+
 ```bash
 make kubernetes-deployment
 ```
@@ -69,8 +71,6 @@ Use below command to uninstall resources
 ```bash
 make uninstall-deployment
 ```
-
-**Note**: Health check is implemented, in case of any error deployment will restart. Even after this if you are not able to use application, use `kubectl get pods` to check health of pods and in case it still crashing try to reinstall resources by above command
 
 ## Deploy file store in Docker (Optional)
 
