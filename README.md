@@ -20,23 +20,40 @@ Before you start, ensure that you have the following tools installed on your sys
 ## Quick start
 You can run CLI application and use public minio server to host file, this is easy to run and test CLI application quickly.
 
-1. Clone the repository to your local machine using the following command:
+### Unix systems (Linux, Mac)
+1. Run below command, it will download and start the server and also install `store` CLI to your system:
 ```bash
 git clone https://github.com/Yashsharma1911/file-store-service
 cd file-store-service
-```
-2. After clone get successful, run the below command (Note: `make` command should be installed in your system if it is not then run next command of it)
-
-```bash
-make local-server
-```
-
-2. **[Alternative]** : If `make` is not installed in your system, copy this and run in your root dir of repo.
-```bash
+chmod +x ./scripts/setup-local-server.sh
 ./scripts/setup-local-server.sh
 ```
 
-**Note:** It is suggested to use default terminal of your system. Incase you're using any customized shell ensure to restart it, if you're using Z shell in Mac run `source ~/.zshrc` to take effect or restart the terminal.
+**Note:** It is suggested to use default terminal of your system. In case you're using any customized shell ensure to restart it, if you're using Z shell in Mac run `source ~/.zshrc` to take effect or restart the terminal.
+3. **Now open a new terminal** and test CLI by adding a file to server.
+```bash
+store add [file path]
+
+# If you are in root dir of project you can run the below command also
+store add examples/newText.txt
+
+# Use "" in file path if you want to upload two files or if there is space or a special character in your path
+store add "examples/newText.txt" "examples/test.txt"
+```
+
+Use below command to see list of stored files.
+```bash
+store ls
+```
+
+### Windows
+1. Run below command, it will download and start the server and also install `store` CLI to your system:
+```bash
+git clone https://github.com/Yashsharma1911/file-store-service
+cd file-store-service
+./scripts/setup-local-server.sh
+```
+
 3. **Now open a new terminal** and test CLI by adding a file to server.
 ```bash
 store add [file path]
