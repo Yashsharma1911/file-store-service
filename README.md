@@ -76,7 +76,7 @@ store ls
 
 ## Deploy file store in Kubernetes (Optional)
 
-You can deploy file store to your kubernetes cluster, run below make command which will auto deploy kubernetes resources to run your application.
+You can deploy file store to your Kubernetes cluster, run below make command which will auto-deploy Kubernetes resources to run your application.
 
 **Note:** After installation gets successful do run `kubectl get pods` to ensure deployments are up and running.
 
@@ -84,7 +84,7 @@ You can deploy file store to your kubernetes cluster, run below make command whi
 make kubernetes-deployment
 ```
 
-**[Alternative]** : if `make` is not installed run below command in root dir of project
+**[Alternative]** : if `make` is not installed run below command in root dir of the project
 ```bash
 ./scripts/setup-kubernetes.sh
 ```
@@ -97,7 +97,7 @@ make uninstall-deployment
 
 ## Deploy file store in Docker (Optional)
 
-Run below command to deploy application constainers, it will start Minio container exposed at `:9000` port and will start server container at `:30000` port.
+Run below command to deploy application containers, it will start Minio container exposed at `:9000` port and will start server container at `:30000` port.
 
 ```bash
 make docker-up
@@ -117,5 +117,5 @@ Checkout File Store CLI [docker image](https://hub.docker.com/repository/docker/
 `store wc` - Get total number of words present in all files. <br>
 `store freq-words [--limit|-n 10] [--order=dsc|asc]` - List of least or most frequent words, use `--order` to change order of least or most and use `--limit | -n` flag for the number of words you want to check, default is 10 <br>
 
-# System Achitecture
+# System Architecture
 <img src="https://github.com/user-attachments/assets/6ca653c2-95fd-4a9a-90e1-d86c01b851ab" alt="Alt text" width="700"/>
