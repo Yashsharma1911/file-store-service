@@ -36,6 +36,7 @@ make local-server
 ./scripts/setup-local-server.sh
 ```
 
+**Note:** It is suggested to use default terminal of your system. Incase you're using any customized shell ensure to restart it, if you're using Z shell in Mac run `source ~/.zshrc` to take effect or restart the terminal.
 3. **Now open a new terminal** and test CLI by adding a file to server.
 ```bash
 store add [file path]
