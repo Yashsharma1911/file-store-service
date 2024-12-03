@@ -30,7 +30,7 @@ echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.bashrc && source ~/.bashrc
 ./scripts/setup-local-server.sh
 ```
 
-**Note:** It is suggested to use default terminal of your system. In case you're using any customized shell ensure to restart it, if you're using Z shell in Mac run `echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.zshrc && source ~/.zshrc` to take effect or restart the terminal.
+**Note:** It is suggested to use default (bash) terminal of your system. In case you're using any customized shell ensure to restart it, if you're using Z shell in Mac run `echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.zshrc && source ~/.zshrc` to take effect or restart the terminal.
 
 2. **Now open a new terminal** and test CLI by adding a file to server.
 ```bash
