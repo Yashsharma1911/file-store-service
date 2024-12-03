@@ -1,4 +1,4 @@
-# File Store System CLI
+# Problem Statement 1: File Store System CLI
 
 `store` is a command-line tool to manage your files and provide self host environment. This README will guide you through installation, setup, and usage of the tool.
 
