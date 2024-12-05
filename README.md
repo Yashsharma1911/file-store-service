@@ -1,8 +1,9 @@
 # Problem Statement 1: File Store System CLI
 
-`store` is a command-line tool to manage your files and provide self host environment. This README will guide you through installation, setup, and usage of the tool.
+`store` is a command-line tool to manage your files through server.
 
-Store uses MinIo bucket (blob storage) to store files. If you will use docker to run service it will store files in your current file store repo path. I've mentioned other types of deployment where we are leveraging the public server provided by MinIO and self host service like kubernetes deployment.
+I've used MinIO to mock the real life implementation of bucket to store files in server instead of storing them in file store path, MinIO also has support for S3 AWS bucket which shows extensibility of this implementation. However, if you use docker to run server it will store uploaded files in file store path.
+
 ### Example
 In this video I used kubernetes to run application however it is optional, checkout Installation part to run application locally quickly
 <br>
@@ -18,7 +19,7 @@ Before you start, ensure that you have the following tools installed on your sys
 
 # Installation
 ## Quick start
-You can run CLI application and use public minio server to host file, this is easy to run and test CLI application quickly.
+This will store your files in public MinIO bucket instead of file store itself, use docker (Installation is mentioned in Readme below) to run the server if you want to store files in current file store path.
 
 ### Unix systems (Linux, Mac)
 1. Run below command, it will download and start the server and also install `store` CLI to your system:
