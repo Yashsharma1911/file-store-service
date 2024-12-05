@@ -34,6 +34,7 @@ echo "store built successfully."
 # Install the store command globally
 echo ""
 echo "Installing store command..."
+echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.bashrc && source ~/.bashrc
 go install ./cmd/store
 echo "store command installed successfully."
 
