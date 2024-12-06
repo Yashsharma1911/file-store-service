@@ -2,7 +2,7 @@
 
 `store` is a command-line tool to manage your files through server.
 
-I've used MinIO to mock the real life implementation of bucket to store files in server instead of storing them in file store path, MinIO also has support for S3 AWS bucket which shows extensibility of this implementation. However, if you use docker to run server it will store uploaded files in file store path.
+I've used MinIO to mock the real life implementation of bucket to store files in server instead of storing them in file store path, MinIO also has support for S3 AWS bucket which shows extensibility of this implementation. However, if you use docker to run server it will store uploaded files in current file store path in `data/` dir.
 
 ### Example
 In this video I used kubernetes to run application however it is optional, checkout Installation part to run application locally quickly
@@ -98,17 +98,18 @@ make uninstall-deployment
 
 ## Deploy file store in Docker (Optional)
 
-Run below command to deploy application containers, it will start Minio container exposed at `:9000` port and will start server container at `:30000` port.
+Run below command to deploy application containers, it will start Minio container exposed at `:9000` port and will start server container at `:30000` port. After you get server started open new terminal and run `store add [file path]` command to check you're able to add files. Run `store ls` to check uploaded files or checkout `./data/testbucket` dir in current file store path to see uploaded files .
 
 ```bash
 make docker-up
 ```
 **[Alternative]** : if `make` is not installed.
 ```bash
-docker compose up
+chmod +x ./scripts/setup-docker.sh
+./scripts/setup-docker.sh
 ```
-#### Additional
-Checkout File Store CLI [docker image](https://hub.docker.com/repository/docker/yashsharma1911/file-store/general)
+#### Additional (Optional)
+Checkout File Store CLI [docker image](https://hub.docker.com/repository/docker/yashsharma1911/file-store/general) for any additional updates.
 
 # Suported Commands
 `store add [file path] [file2 path]` - Store file to server, if file already exist on server it will return error for that file<br>
